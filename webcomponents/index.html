@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+
+<button onclick="useIt()">Use me</button>
+<div id="container"></div>
+<script>
+  function useIt() {
+    var content = document.querySelector('template').content;
+    // Update something in the template DOM.
+    var span = content.querySelector('span');
+    span.textContent = parseInt(span.textContent) + 1;
+    document.querySelector('#container').appendChild(
+        content.cloneNode(true));
+  }
+</script>
+
+<template>
+  <div>Template used: <span>0</span></div>
+  <script>alert('Thanks!')</script>
+</template>
+
+<hr />
+
+<decorator id="fade-to-white">
+    <template>
+        <div style="position: relative;">
+            <style scoped>
+                #fog {
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    height: 5em;
+                    background: linear-gradient(
+                    bottom, white 0%, rgba(255, 255, 255, 0) 100%);
+                }
+            </style>
+            <content></content>
+            <div id="fog"></div>
+        </div>
+    </template>
+</decorator>
+<style>
+.poem {
+    decorator: url(#fade-to-white);
+    font-variant: small-caps;
+    }
+</style>
+<div class="poem" style="font-variant: small-caps;">
+    <div style="position: relative;">
+        Two roads diverged in a yellow wood,<br>
+        …
+        <div style="position: absolute; left: 0; …"></div>
+    </div>
+</div>
+
+</body>
+</html>
